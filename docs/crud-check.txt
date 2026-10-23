@@ -1,0 +1,26 @@
+### CREATE
+$ curl -X POST http://localhost:8080/api/tasks -H 'Content-Type: application/json' -d '{"title":"Сдать контрольную","description":"Docker Compose + PostgreSQL"}'
+{"id":1,"title":"Сдать контрольную","description":"Docker Compose + PostgreSQL","isCompleted":false,"createdAt":"2026-10-23T11:54:54.131545Z"}
+$ curl -X POST http://localhost:8080/api/tasks -H 'Content-Type: application/json' -d '{"title":"Подготовиться к защите"}'
+{"id":2,"title":"Подготовиться к защите","description":null,"isCompleted":false,"createdAt":"2026-10-23T11:54:54.2103239Z"}
+
+### READ (все)
+$ curl http://localhost:8080/api/tasks
+[{"id":1,"title":"Сдать контрольную","description":"Docker Compose + PostgreSQL","isCompleted":false,"createdAt":"2026-10-23T11:54:54.131545Z"},{"id":2,"title":"Подготовиться к защите","description":null,"isCompleted":false,"createdAt":"2026-10-23T11:54:54.210323Z"}]
+
+### READ (по id)
+$ curl http://localhost:8080/api/tasks/1
+{"id":1,"title":"Сдать контрольную","description":"Docker Compose + PostgreSQL","isCompleted":false,"createdAt":"2026-10-23T11:54:54.131545Z"}
+
+### UPDATE
+$ curl -X PUT http://localhost:8080/api/tasks/1 -H 'Content-Type: application/json' -d '{"title":"Сдать контрольную","description":"Готово","isCompleted":true}'
+{"id":1,"title":"Сдать контрольную","description":"Готово","isCompleted":true,"createdAt":"2026-10-23T11:54:54.131545Z"}
+
+### DELETE
+$ curl -X DELETE http://localhost:8080/api/tasks/2 -w '%{http_code}'
+HTTP 204
+$ curl http://localhost:8080/api/tasks/2 -w '%{http_code}'
+HTTP 404
+
+### Итоговое состояние
+[{"id":1,"title":"Сдать контрольную","description":"Готово","isCompleted":true,"createdAt":"2026-10-23T11:54:54.131545Z"}]

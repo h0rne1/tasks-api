@@ -1,0 +1,3 @@
+NAME        IMAGE                                                                     COMMAND                  SERVICE   CREATED              STATUS                   PORTS
+tasks-api   sha256:ac5bcdfd23794b90ec1d993a8393ae78b1b547a429a4ebac0f75c3a9906a3774   "dotnet TasksApi.dll"    api       About a minute ago   Up 2 seconds             0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp
+tasks-db    postgres:16                                                               "docker-entrypoint.s…"   db        8 seconds ago        Up 7 seconds (healthy)   0.0.0.0:5433->5432/tcp, [::]:5433->5432/tcp

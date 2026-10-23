@@ -1,0 +1,50 @@
+### Данные до перезапуска
+[{"id":1,"title":"Сдать контрольную","description":"Готово","isCompleted":true,"createdAt":"2026-10-23T11:54:54.131545Z"}]
+
+$ docker compose down
+ Container tasks-api Stopping 
+ Container tasks-api Stopped 
+ Container tasks-api Removing 
+ Container tasks-api Removed 
+ Container tasks-db Stopping 
+ Container tasks-db Stopped 
+ Container tasks-db Removing 
+ Container tasks-db Removed 
+ Network tasks-api_app-network Removing 
+ Network tasks-api_app-network Removed 
+
+$ docker compose up -d
+ Network tasks-api_app-network Creating 
+ Network tasks-api_app-network Creating 
+ Network tasks-api_app-network Created 
+ Network tasks-api_app-network Created 
+ Container tasks-db Creating 
+ Container tasks-db Created 
+ Container tasks-api Creating 
+ Container tasks-api Created 
+ Container tasks-db Starting 
+ Container tasks-db Started 
+ Container tasks-db Waiting 
+ Container tasks-db Healthy 
+ Container tasks-api Starting 
+ Container tasks-api Started 
+
+$ docker compose ps
+NAME        IMAGE           COMMAND                  SERVICE   CREATED         STATUS                   PORTS
+tasks-api   tasks-api-api   "dotnet TasksApi.dll"    api       8 seconds ago   Up 2 seconds             0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp
+tasks-db    postgres:16     "docker-entrypoint.s…"   db        8 seconds ago   Up 7 seconds (healthy)   0.0.0.0:5433->5432/tcp, [::]:5433->5432/tcp
+
+### Данные после перезапуска (volume db_data)
+$ curl http://localhost:8080/api/tasks
+[{"id":1,"title":"Сдать контрольную","description":"Готово","isCompleted":true,"createdAt":"2026-10-23T11:54:54.131545Z"}]
+
+### Проверка напрямую в PostgreSQL
+$ docker compose exec db psql -U postgres -d app -c 'SELECT * FROM tasks;'
+ id |       title       | description | is_completed |          created_at           
+----+-------------------+-------------+--------------+-------------------------------
+  1 | Сдать контрольную | Готово      | t            | 2026-10-23 11:54:54.131545+00
+(1 row)
+
+$ docker volume ls
+DRIVER    VOLUME NAME
+local     tasks-api_db_data

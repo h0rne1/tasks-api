@@ -1,0 +1,66 @@
+tasks-db   | 
+tasks-db   | PostgreSQL Database directory appears to contain a database; Skipping initialization
+tasks-db   | 
+tasks-db   | 2026-10-23 11:54:54.969 UTC [1] LOG:  starting PostgreSQL 16.15 (Debian 16.15-1.pgdg13+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit
+tasks-db   | 2026-10-23 11:54:54.970 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+tasks-api  | info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+tasks-api  |       Executed DbCommand (15ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+tasks-api  |       SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
+tasks-api  |       FROM pg_class AS cls
+tasks-api  |       JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+tasks-api  |       WHERE
+tasks-api  |               cls.relkind IN ('r', 'v', 'm', 'f', 'p') AND
+tasks-api  |               ns.nspname NOT IN ('pg_catalog', 'information_schema') AND
+tasks-api  |               -- Exclude tables which are members of PG extensions
+tasks-api  |               NOT EXISTS (
+tasks-api  |                   SELECT 1 FROM pg_depend WHERE
+tasks-api  |                       classid=(
+tasks-api  |                           SELECT cls.oid
+tasks-api  |                           FROM pg_class AS cls
+tasks-api  |                                    JOIN pg_namespace AS ns ON ns.oid = cls.relnamespace
+tasks-api  |                           WHERE relname='pg_class' AND ns.nspname='pg_catalog'
+tasks-api  |                       ) AND
+tasks-api  |                       objid=cls.oid AND
+tasks-api  |                       deptype IN ('e', 'x')
+tasks-db   | 2026-10-23 11:54:54.970 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+tasks-db   | 2026-10-23 11:54:54.970 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+tasks-db   | 2026-10-23 11:54:54.972 UTC [29] LOG:  database system was shut down at 2026-10-23 11:54:54 UTC
+tasks-db   | 2026-10-23 11:54:54.973 UTC [1] LOG:  database system is ready to accept connections
+tasks-api  |               )
+tasks-api  | info: Program[0]
+tasks-api  |       Connected to PostgreSQL at db:5432/app
+tasks-api  | warn: Microsoft.AspNetCore.Hosting.Diagnostics[15]
+tasks-api  |       Overriding HTTP_PORTS '8080' and HTTPS_PORTS ''. Binding to values defined by URLS instead 'http://+:8080'.
+tasks-api  | info: Microsoft.Hosting.Lifetime[14]
+tasks-api  |       Now listening on: http://[::]:8080
+tasks-api  | info: Microsoft.Hosting.Lifetime[0]
+tasks-api  |       Application started. Press Ctrl+C to shut down.
+tasks-api  | info: Microsoft.Hosting.Lifetime[0]
+tasks-api  |       Hosting environment: Production
+tasks-api  | info: Microsoft.Hosting.Lifetime[0]
+tasks-api  |       Content root path: /app
+tasks-api  | info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+tasks-api  |       Request starting HTTP/1.1 GET http://localhost:8080/ - - -
+tasks-api  | info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+tasks-api  |       Executing endpoint 'HTTP: GET /'
+tasks-api  | info: Microsoft.AspNetCore.Http.Result.OkObjectResult[1]
+tasks-api  |       Setting HTTP status code 200.
+tasks-api  | info: Microsoft.AspNetCore.Http.Result.OkObjectResult[3]
+tasks-api  |       Writing value of type '<>f__AnonymousType0`2' as Json.
+tasks-api  | info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+tasks-api  |       Executed endpoint 'HTTP: GET /'
+tasks-api  | info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+tasks-api  |       Request finished HTTP/1.1 GET http://localhost:8080/ - 200 - application/json;+charset=utf-8 43.1169ms
+tasks-api  | info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+tasks-api  |       Request starting HTTP/1.1 GET http://localhost:8080/api/tasks - - -
+tasks-api  | info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+tasks-api  |       Executing endpoint 'HTTP: GET /api/tasks/'
+tasks-api  | info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+tasks-api  |       Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+tasks-api  |       SELECT t.id, t.created_at, t.description, t.is_completed, t.title
+tasks-api  |       FROM tasks AS t
+tasks-api  |       ORDER BY t.id
+tasks-api  | info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+tasks-api  |       Executed endpoint 'HTTP: GET /api/tasks/'
+tasks-api  | info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+tasks-api  |       Request finished HTTP/1.1 GET http://localhost:8080/api/tasks - 200 - application/json;+charset=utf-8 100.3711ms
