@@ -1,5 +1,5 @@
 ### Данные до перезапуска
-[{"id":1,"title":"Сдать контрольную","description":"Готово","isCompleted":true,"createdAt":"2026-10-23T11:54:54.131545Z"}]
+[{"id":1,"title":"Сдать контрольную","description":"Готово","isCompleted":true,"createdAt":"2026-10-23T11:54:54.131545Z"},{"id":3,"title":"Сдать контрольную","description":"Готово","isCompleted":true,"createdAt":"2026-11-10T12:50:46.091697Z"}]
 
 $ docker compose down
  Container tasks-api Stopping 
@@ -36,14 +36,15 @@ tasks-db    postgres:16     "docker-entrypoint.s…"   db        8 seconds ago  
 
 ### Данные после перезапуска (volume db_data)
 $ curl http://localhost:8080/api/tasks
-[{"id":1,"title":"Сдать контрольную","description":"Готово","isCompleted":true,"createdAt":"2026-10-23T11:54:54.131545Z"}]
+[{"id":1,"title":"Сдать контрольную","description":"Готово","isCompleted":true,"createdAt":"2026-10-23T11:54:54.131545Z"},{"id":3,"title":"Сдать контрольную","description":"Готово","isCompleted":true,"createdAt":"2026-11-10T12:50:46.091697Z"}]
 
 ### Проверка напрямую в PostgreSQL
 $ docker compose exec db psql -U postgres -d app -c 'SELECT * FROM tasks;'
  id |       title       | description | is_completed |          created_at           
 ----+-------------------+-------------+--------------+-------------------------------
   1 | Сдать контрольную | Готово      | t            | 2026-10-23 11:54:54.131545+00
-(1 row)
+  3 | Сдать контрольную | Готово      | t            | 2026-11-10 12:50:46.091697+00
+(2 rows)
 
 $ docker volume ls
 DRIVER    VOLUME NAME

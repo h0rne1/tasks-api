@@ -1,8 +1,12 @@
 tasks-db   | 
 tasks-db   | PostgreSQL Database directory appears to contain a database; Skipping initialization
 tasks-db   | 
-tasks-db   | 2026-10-23 11:54:54.969 UTC [1] LOG:  starting PostgreSQL 16.15 (Debian 16.15-1.pgdg13+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit
-tasks-db   | 2026-10-23 11:54:54.970 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+tasks-db   | 2026-11-10 12:50:46.967 UTC [1] LOG:  starting PostgreSQL 16.15 (Debian 16.15-1.pgdg13+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit
+tasks-db   | 2026-11-10 12:50:46.967 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+tasks-db   | 2026-11-10 12:50:46.967 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+tasks-db   | 2026-11-10 12:50:46.969 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+tasks-db   | 2026-11-10 12:50:46.971 UTC [29] LOG:  database system was shut down at 2026-11-10 12:50:46 UTC
+tasks-db   | 2026-11-10 12:50:46.973 UTC [1] LOG:  database system is ready to accept connections
 tasks-api  | info: Microsoft.EntityFrameworkCore.Database.Command[20101]
 tasks-api  |       Executed DbCommand (15ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
 tasks-api  |       SELECT CASE WHEN COUNT(*) = 0 THEN FALSE ELSE TRUE END
@@ -22,10 +26,6 @@ tasks-api  |                           WHERE relname='pg_class' AND ns.nspname='
 tasks-api  |                       ) AND
 tasks-api  |                       objid=cls.oid AND
 tasks-api  |                       deptype IN ('e', 'x')
-tasks-db   | 2026-10-23 11:54:54.970 UTC [1] LOG:  listening on IPv6 address "::", port 5432
-tasks-db   | 2026-10-23 11:54:54.970 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
-tasks-db   | 2026-10-23 11:54:54.972 UTC [29] LOG:  database system was shut down at 2026-10-23 11:54:54 UTC
-tasks-db   | 2026-10-23 11:54:54.973 UTC [1] LOG:  database system is ready to accept connections
 tasks-api  |               )
 tasks-api  | info: Program[0]
 tasks-api  |       Connected to PostgreSQL at db:5432/app
@@ -50,7 +50,7 @@ tasks-api  |       Writing value of type '<>f__AnonymousType0`2' as Json.
 tasks-api  | info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
 tasks-api  |       Executed endpoint 'HTTP: GET /'
 tasks-api  | info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
-tasks-api  |       Request finished HTTP/1.1 GET http://localhost:8080/ - 200 - application/json;+charset=utf-8 43.1169ms
+tasks-api  |       Request finished HTTP/1.1 GET http://localhost:8080/ - 200 - application/json;+charset=utf-8 43.8013ms
 tasks-api  | info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
 tasks-api  |       Request starting HTTP/1.1 GET http://localhost:8080/api/tasks - - -
 tasks-api  | info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
@@ -63,4 +63,4 @@ tasks-api  |       ORDER BY t.id
 tasks-api  | info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
 tasks-api  |       Executed endpoint 'HTTP: GET /api/tasks/'
 tasks-api  | info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
-tasks-api  |       Request finished HTTP/1.1 GET http://localhost:8080/api/tasks - 200 - application/json;+charset=utf-8 100.3711ms
+tasks-api  |       Request finished HTTP/1.1 GET http://localhost:8080/api/tasks - 200 - application/json;+charset=utf-8 104.9984ms
