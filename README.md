@@ -135,16 +135,3 @@ docker compose logs db
 | [`docs/compose-logs.txt`](docs/compose-logs.txt)     | вывод `docker compose logs`                 |
 
 Чтобы начать с чистой базы: `docker compose down -v`.
-
-
-## Вопросы на защите — кратко
-
-- **Сущность:** `TaskItem` (таблица `tasks`) — задача с названием, описанием и статусом выполнения. Тема проекта «сервис задач», поэтому основная сущность — задача.
-- **Сервисы в `docker-compose.yml`:** `api` (собирается из `Dockerfile`, порт 8080) и `db` (`postgres:16`, порт 5433 снаружи → 5432 внутри).
-- **Почему PostgreSQL:** это отдельный серверный процесс, его можно запустить отдельным контейнером. SQLite — просто файл внутри приложения, отдельным сервисом его не запустить.
-- **Как API подключается:** строка подключения собирается из переменных окружения; `DB_HOST=db` — это имя сервиса, Docker DNS внутри сети `app-network` превращает его в IP контейнера БД.
-- **Переменные окружения:** у `db` — `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD`; у `api` — `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`.
-- **Сеть:** `app-network` (bridge), оба сервиса в ней.
-- **`depends_on`:** `api` ждёт, пока `db` станет `healthy` (healthcheck `pg_isready`).
-- **Volume:** именованный `db_data` смонтирован в `/var/lib/postgresql/data`. `docker compose down` удаляет контейнеры, но не volume, поэтому данные остаются.
-- **Как проверял:** `check.sh` — CRUD через curl, затем `down`/`up`, повторный `GET` и `SELECT` в psql. Результаты — в `docs/`.
